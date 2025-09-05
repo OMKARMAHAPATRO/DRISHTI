@@ -3,20 +3,7 @@ import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet, ActivityIn
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuth } from './AuthContext';
 import { API_BASE_URL } from './config';
-import { decode } from 'base-64';
-// ...existing code...
-import { atob } from 'react-native-quick-base64';
-// ...existing code...
-// Helper function to decode base64url
-function base64UrlDecode(str) {
-  // Replace non-url compatible chars with base64 standard chars
-  str = str.replace(/-/g, '+').replace(/_/g, '/');
-  // Pad with trailing '='
-  while (str.length % 4) {
-    str += '=';
-  }
-  return decode(str);
-}
+import { base64UrlDecode } from './utils/jwtUtils';
 
 export default function LoginScreen({ navigation }) {
   const { login } = useAuth();
@@ -60,18 +47,35 @@ export default function LoginScreen({ navigation }) {
       });
 
       const data = await response.json();
+      console.log('Login API response:', data);
 
       if (response.ok) {
+        console.log('Token received:', data.token);
         try {
           await AsyncStorage.setItem('token', data.token);
         } catch (storageError) {
           console.error('AsyncStorage error:', storageError);
         }
         // Decode token to get user info (handle base64url)
-        const payload = JSON.parse(base64UrlDecode(data.token.split('.')[1]));
-        login(payload.user);
-        navigation.replace('Dashboard');
+        try {
+          const tokenParts = data.token.split('.');
+          console.log('Token parts:', tokenParts);
+          const payloadStr = tokenParts[1];
+          console.log('Payload string:', payloadStr);
+          const decoded = base64UrlDecode(payloadStr);
+          console.log('Decoded payload:', decoded);
+          const payload = JSON.parse(decoded);
+          console.log('Parsed payload:', payload);
+          console.log('Calling login with user:', payload.user);
+          login(payload.user);
+          navigation.navigate('Dashboard');
+          console.log('Navigated to Dashboard');
+        } catch (decodeError) {
+          console.error('Token decode error:', decodeError);
+          setPasswordError('Login failed: Invalid token');
+        }
       } else {
+        console.error('Login failed with error:', data.error);
         setPasswordError(data.error || 'Login failed');
       }
     } catch (error) {

@@ -1,17 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { decode } from 'base-64';
-
-// Helper function to decode base64url
-function base64UrlDecode(str) {
-  // Replace non-url compatible chars with base64 standard chars
-  str = str.replace(/-/g, '+').replace(/_/g, '/');
-  // Pad with trailing '='
-  while (str.length % 4) {
-    str += '=';
-  }
-  return decode(str);
-}
+import { base64UrlDecode } from './utils/jwtUtils';
 
 const AuthContext = createContext();
 
@@ -28,9 +17,17 @@ export const AuthProvider = ({ children }) => {
     const checkAuth = async () => {
       try {
         const token = await AsyncStorage.getItem('token');
+        console.log('Stored token:', token);
         if (token) {
           // Decode token to get user info
-          const payload = JSON.parse(base64UrlDecode(token.split('.')[1]));
+          const tokenParts = token.split('.');
+          console.log('Token parts on load:', tokenParts);
+          const payloadStr = tokenParts[1];
+          console.log('Payload string on load:', payloadStr);
+          const decoded = base64UrlDecode(payloadStr);
+          console.log('Decoded payload on load:', decoded);
+          const payload = JSON.parse(decoded);
+          console.log('Parsed payload on load:', payload);
           setUser(payload.user);
           setIsAuthenticated(true);
         }

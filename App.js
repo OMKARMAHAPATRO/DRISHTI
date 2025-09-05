@@ -18,15 +18,9 @@ function AppNavigator() {
 
   return (
     <Stack.Navigator initialRouteName={isAuthenticated ? "Dashboard" : "Login"}>
-      {!isAuthenticated && (
-        <>
-          <Stack.Screen name="Signup" component={SignupScreen} />
-          <Stack.Screen name="Login" component={LoginScreen} />
-        </>
-      )}
-      {isAuthenticated && (
-        <Stack.Screen name="Dashboard" component={DashboardScreen} />
-      )}
+      <Stack.Screen name="Signup" component={SignupScreen} />
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Dashboard" component={DashboardScreen} />
     </Stack.Navigator>
   );
 }

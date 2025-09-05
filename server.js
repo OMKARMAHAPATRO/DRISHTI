@@ -82,7 +82,10 @@ app.post('/api/signup', async (req, res) => {
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
 
+  console.log('Login request received:', { email });
+
   if (!email || !password) {
+    console.log('Login failed: Missing email or password');
     return res.status(400).json({ error: 'Please provide email and password' });
   }
 
@@ -90,12 +93,14 @@ app.post('/api/login', async (req, res) => {
     // Find user by email
     const user = await User.findOne({ email });
     if (!user) {
+      console.log('Login failed: User not found');
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
     // Compare password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
+      console.log('Login failed: Password mismatch');
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
@@ -108,8 +113,9 @@ app.post('/api/login', async (req, res) => {
         mobile: user.mobile,
       },
     };
-    const token = jwt.sign(payload, 'your_jwt_secret', { expiresIn: '1h' });
+    const token = jwt.sign(payload, 'hackathon_secret_key_2024', { expiresIn: '1h' });
 
+    console.log('Login successful, token generated');
     res.json({ token });
   } catch (error) {
     console.error('Login error:', error);
