@@ -347,3 +347,34 @@ Project DRISHTI elevates command oversight from reactive dashboards to forward�
 ---
 
 © Team Aashu – Simhastha Hackathon Submission (Reg. TH12915)
+
+
+
+Sample 1
+
+<img width="1920" height="1080" alt="Screenshot (239)" src="https://github.com/user-attachments/assets/8f982b18-b1dd-4e4a-b1b6-e9e070cca5e3" />
+
+sample 2
+
+<img width="1920" height="1080" alt="Screenshot (240)" src="https://github.com/user-attachments/assets/551919d6-c0fa-4783-8f1a-135307edacf7" />
+
+Sample 3
+
+<img width="1920" height="1080" alt="Screenshot (241)" src="https://github.com/user-attachments/assets/a64c1a08-3c00-469b-b15c-a2c9a0630b67" />
+
+sample 4
+
+<img width="1920" height="1080" alt="Screenshot (242)" src="https://github.com/user-attachments/assets/3d8430c6-80ad-4a7a-abd6-78507221b8f6" />
+
+Sample 5
+
+<img width="1920" height="1080" alt="Screenshot (243)" src="https://github.com/user-attachments/assets/f933468a-69c1-4fd2-b842-bd049849a0b7" />
+
+Sample 6
+
+<img width="1920" height="1080" alt="Screenshot (244)" src="https://github.com/user-attachments/assets/cb30839a-29f2-4176-afa4-df4afafc3d63" />
+
+Sample 7
+
+<img width="1920" height="1080" alt="Screenshot (245)" src="https://github.com/user-attachments/assets/50c0aebc-3856-4a0c-a11d-72fabba0d30f" />
+
